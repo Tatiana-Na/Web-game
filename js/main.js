@@ -1,38 +1,55 @@
-'use strict'
+"use strict";
 
-const btn = document.querySelector('.js-btn');
+//Elementos de html
 
+const btn = document.querySelector(".js_button");
+const userNumberInput = document.querySelector(".js_userNumber");
+const tips = document.querySelector(".js_tips");
+const numberOfTries = document.querySelector(".js_numberOfTries");
 
-const randomNumber = getRandomNumber(100);
-console.log(randomNumber);
-
-const numberOfGuesses = 0;
-
+// Functiones
 function getRandomNumber(max) { 
     return Math.ceil(Math.random() * max); 
-  }
-
-btn.addEventListener('click', evt => {
-    evt.preventDefault()   
-});
-
-const form = document.querySelector('.js-form');
-form.addEventListener('submit', handleSubmit);
-function handleSubmit(event) {
-   event.preventDefault();
-   console.log('input.value');
-   input.value = '';
 }
+ 
 
-while (guess != randomNumber) {
-    if (guess > randomNumber) {
-        guess = form('Demasiado alto');  
-        numberOfGuesses = numberOfGuesses +1;
-}
+function checkNumber() {
+    const userNumber = parseInt(userNumberInput.value);
+    if( isNaN(userNumber)) {
+        tips.innerHTML = "El número debe estar entre 1 y 100.!"
+    }
+    else if (userNumber > randomNumber) {
+      tips.innerHTML = "Demasiado alto."; 
+    }
+    
+    else if (userNumber < randomNumber) {
+        tips.innerHTML = "Demasiado bajo."
+    }
+    
+    else if (userNumber === randomNumber) {
+        tips.innerHTML = "Has ganado campeona!!!"
+    }
+}; 
 
-if (guess < randomNumber) {
-    guess = form('Demasiado bajo');  
-    numberOfGuesses = numberOfGuesses +1;
-}
-}
+
+function incrementCounter() {
+numberOfTriesCounter++ // numberOfTriesCounter +1
+numberOfTries.innerHTML = numberOfTriesCounter;
+};
+
+function handleClick(ev) {
+    ev.preventDefault();
+    checkNumber();
+    incrementCounter();
+};
+
+
+
+//Eventos 
+btn.addEventListener("click", handleClick)
+
+  //Main 
+  let numberOfTriesCounter = 0;
+  const randomNumber = getRandomNumber( 100 ); 
+  console.log(randomNumber);
  
